@@ -30,11 +30,11 @@ router.post(
 // @route PUT api/contacts
 // @desc Update contact
 // @access Private
-router.put('/:id', updateContact);
+router.put('/:id', auth, updateContact);
 
 // @route DELETE api/contacts
 // @desc Delete contact
 // @access Private
-router.delete('/:id', deleteContact);
+router.delete('/:id', auth, deleteContact);
 
 module.exports = router;
