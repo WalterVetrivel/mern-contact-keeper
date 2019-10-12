@@ -1,4 +1,8 @@
 const express = require('express');
+const {check} = require('express-validator');
+
+const auth = require('../middleware/auth');
+const validate = require('../middleware/validation');
 
 const {
 	createContact,
@@ -12,12 +16,16 @@ const router = express.Router();
 // @route GET api/contacts
 // @desc Get contacts
 // @access Private
-router.post('/', getContacts);
+router.get('/', auth, getContacts);
 
 // @route POST api/contacts
 // @desc Create contact
 // @access Private
-router.post('/', createContact);
+router.post(
+	'/',
+	[auth, check('name', 'Name is required'), validate],
+	createContact
+);
 
 // @route PUT api/contacts
 // @desc Update contact
@@ -27,6 +35,6 @@ router.put('/:id', updateContact);
 // @route DELETE api/contacts
 // @desc Delete contact
 // @access Private
-router.delete('/:id', updateContact);
+router.delete('/:id', deleteContact);
 
 module.exports = router;
