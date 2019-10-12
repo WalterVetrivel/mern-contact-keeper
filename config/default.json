@@ -1,3 +1,4 @@
 {
-	"mongoURI": "mongodb+srv://contact-keeper:OuXDD6AixB6ztdrp@cluster0-mineu.mongodb.net/test?retryWrites=true&w=majority"
+	"mongoURI": "mongodb+srv://contact-keeper:OuXDD6AixB6ztdrp@cluster0-mineu.mongodb.net/test?retryWrites=true&w=majority",
+	"jwtSecret": "0UaLvgY2ppzs6YFG"
 }
