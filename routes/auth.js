@@ -1,7 +1,8 @@
 const express = require('express');
 const {check} = require('express-validator');
 
-const {validate} = require('../middleware/validation');
+const validate = require('../middleware/validation');
+const auth = require('../middleware/auth');
 const {getCurrentUser, login} = require('../controllers/authController');
 
 const router = express.Router();
@@ -9,7 +10,7 @@ const router = express.Router();
 // @route GET api/auth
 // @desc Get logged in user
 // @access Private
-router.get('/', getCurrentUser);
+router.get('/', auth, getCurrentUser);
 
 // @route POST api/auth
 // @desc Login

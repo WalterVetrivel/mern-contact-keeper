@@ -3,8 +3,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-exports.getCurrentUser = (req, res) => {
-	res.send('Get current user');
+exports.getCurrentUser = async (req, res) => {
+	try {
+		const user = await User.findById(req.user.id).select('-password');
+		return res.json(user);
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({msg: 'Something went wrong'});
+	}
 };
 
 exports.login = async (req, res) => {
