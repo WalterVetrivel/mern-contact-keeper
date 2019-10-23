@@ -20,11 +20,25 @@ export default (state, action) => {
 				)
 			};
 		case UPDATE_CONTACT:
-			break;
+			return {
+				...state,
+				contacts: state.contacts.map(contact =>
+					contact.id !== action.payload.id ? contact : action.payload
+				)
+			};
 		case SET_CURRENT:
-			break;
+			const current = state.contacts.find(
+				contact => contact.id === action.payload
+			);
+			return {
+				...state,
+				current
+			};
 		case CLEAR_CURRENT:
-			break;
+			return {
+				...state,
+				current: null
+			};
 		case FILTER_CONTACTS:
 			break;
 		case CLEAR_FILTER:
