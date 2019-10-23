@@ -50,19 +50,37 @@ const ContactState = props => {
 	};
 
 	// Delete contact
+	const deleteContact = id => {
+		dispatch({type: DELETE_CONTACT, payload: id});
+	};
 
 	// Set current contact
+	const setCurrentContact = id => {};
 
 	// Clear current contact
+	const clearCurrentContact = () => {};
 
 	// Update contact
+	const updateContact = contact => {};
 
 	// Filter contacts
+	const filterContacts = () => {};
 
 	// Clear filter
+	const clearFilter = () => {};
 
 	return (
-		<ContactContext.Provider value={{contacts: state.contacts, addContact}}>
+		<ContactContext.Provider
+			value={{
+				contacts: state.contacts,
+				addContact,
+				deleteContact,
+				setCurrentContact,
+				clearCurrentContact,
+				updateContact,
+				filterContacts,
+				clearFilter
+			}}>
 			{props.children}
 		</ContactContext.Provider>
 	);
