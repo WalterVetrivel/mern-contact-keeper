@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+
+import AlertContext from '../../context/alert/alertContext';
 
 const Login = () => {
+	const alertContext = useContext(AlertContext);
+	const {setAlert} = alertContext;
+
 	const [user, setUser] = useState({
 		email: '',
 		password: ''
@@ -14,6 +19,17 @@ const Login = () => {
 
 	const onSubmit = e => {
 		e.preventDefault();
+		let isError = false;
+		if (email === '') {
+			setAlert('Email is required', 'danger');
+			isError = true;
+		}
+		if (password === '') {
+			setAlert('Password is required', 'danger');
+			isError = true;
+		}
+		if (!isError) {
+		}
 	};
 
 	return (
@@ -28,6 +44,7 @@ const Login = () => {
 						value={email}
 						onChange={onChange}
 						placeholder="Eg. test@test.com"
+						required
 					/>
 				</div>
 				<div className="form-group">
@@ -38,6 +55,7 @@ const Login = () => {
 						value={password}
 						onChange={onChange}
 						placeholder="Eg. S@mp1ePwd"
+						required
 					/>
 				</div>
 				<input

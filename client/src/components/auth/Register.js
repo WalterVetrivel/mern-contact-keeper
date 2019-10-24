@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+
+import AlertContext from '../../context/alert/alertContext';
 
 const Register = () => {
+	const alertContext = useContext(AlertContext);
+	const {setAlert} = alertContext;
+
 	const [user, setUser] = useState({
 		name: '',
 		email: '',
@@ -16,6 +21,29 @@ const Register = () => {
 
 	const onSubmit = e => {
 		e.preventDefault();
+		let isError = false;
+		if (name === '') {
+			setAlert('Name is required', 'danger');
+			isError = true;
+		}
+		if (email === '') {
+			setAlert('Email is required', 'danger');
+			isError = true;
+		}
+		if (password === '') {
+			setAlert('Password is required', 'danger');
+			isError = true;
+		}
+		if (password.length < 6) {
+			setAlert('Password must be at least 6 characters long', 'danger');
+			isError = true;
+		}
+		if (password !== password2) {
+			setAlert("Passwords don't match", 'danger');
+			isError = true;
+		}
+		if (!isError) {
+		}
 	};
 
 	return (
@@ -32,7 +60,7 @@ const Register = () => {
 						value={name}
 						onChange={onChange}
 						placeholder="Eg. John Doe"
-						password
+						required
 					/>
 				</div>
 				<div className="form-group">
@@ -43,6 +71,7 @@ const Register = () => {
 						value={email}
 						onChange={onChange}
 						placeholder="Eg. test@test.com"
+						required
 					/>
 				</div>
 				<div className="form-group">
@@ -51,8 +80,10 @@ const Register = () => {
 						type="password"
 						name="password"
 						value={password}
+						minLength="6"
 						onChange={onChange}
 						placeholder="Eg. S@mp1ePwd"
+						required
 					/>
 				</div>
 				<div className="form-group">
@@ -61,8 +92,10 @@ const Register = () => {
 						type="password"
 						name="password2"
 						value={password2}
+						minLength="6"
 						onChange={onChange}
 						placeholder="Eg. S@mp1ePwd"
+						required
 					/>
 				</div>
 				<input
