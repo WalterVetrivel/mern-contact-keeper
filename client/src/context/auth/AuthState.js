@@ -10,8 +10,6 @@ import {
 	LOGOUT,
 	USER_LOADED,
 	AUTH_ERROR,
-	SET_ALERT,
-	REMOVE_ALERT,
 	CLEAR_ERRORS
 } from '../types';
 

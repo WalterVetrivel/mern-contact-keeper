@@ -350,8 +350,17 @@ img {
 }
 
 /* Forms */
+.form-container {
+	width: 70%;
+	margin: 0 auto;
+}
+
+label {
+	font-weight: bold;
+}
+
 input {
-	margin: 1.2rem 0;
+	margin: 1rem 0;
 }
 
 .form-text {
