@@ -1,6 +1,16 @@
-import React from 'react';
+import React, {useEffect, useContext} from 'react';
+
+import AuthContext from '../../context/auth/authContext';
 
 const About = () => {
+	const authContext = useContext(AuthContext);
+	const {loadUser} = authContext;
+
+	useEffect(() => {
+		loadUser();
+		console.log('User loaded');
+	}, []);
+
 	return (
 		<div>
 			<h1>About this app</h1>

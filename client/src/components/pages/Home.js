@@ -12,7 +12,6 @@ const Home = () => {
 
 	useEffect(() => {
 		loadUser();
-		console.log('User loaded');
 	}, []);
 
 	return (

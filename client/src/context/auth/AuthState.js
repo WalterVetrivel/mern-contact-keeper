@@ -37,6 +37,8 @@ const AuthState = props => {
 			} catch (err) {
 				dispatch({type: AUTH_ERROR});
 			}
+		} else {
+			dispatch({type: AUTH_ERROR});
 		}
 	};
 
@@ -58,15 +60,27 @@ const AuthState = props => {
 	};
 
 	// Login user
-	const login = () => {};
+	const login = async formData => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		};
+
+		try {
+			const response = await axios.post('/api/auth', formData, config);
+			dispatch({type: LOGIN_SUCCESS, payload: response.data});
+			loadUser();
+		} catch (err) {
+			dispatch({type: LOGIN_FAIL, payload: err.response.data.msg});
+		}
+	};
 
 	// Logout
-	const logout = () => {};
+	const logout = () => dispatch({type: LOGOUT});
 
 	// Clear errors
-	const clearErrors = () => {
-		dispatch({type: CLEAR_ERRORS});
-	};
+	const clearErrors = () => dispatch({type: CLEAR_ERRORS});
 
 	return (
 		<AuthContext.Provider

@@ -1,9 +1,14 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {Redirect} from 'react-router-dom';
 
+import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 
 const Login = () => {
+	const authContext = useContext(AuthContext);
 	const alertContext = useContext(AlertContext);
+
+	const {login, error, clearErrors, isAuth, loadUser} = authContext;
 	const {setAlert} = alertContext;
 
 	const [user, setUser] = useState({
@@ -13,11 +18,19 @@ const Login = () => {
 
 	const {email, password} = user;
 
+	useEffect(() => {
+		loadUser();
+		if (error && error !== '') {
+			setAlert(error, 'danger');
+			clearErrors();
+		}
+	}, [error]);
+
 	const onChange = e => {
 		setUser({...user, [e.target.name]: e.target.value});
 	};
 
-	const onSubmit = e => {
+	const onSubmit = async e => {
 		e.preventDefault();
 		let isError = false;
 		if (email === '') {
@@ -29,10 +42,16 @@ const Login = () => {
 			isError = true;
 		}
 		if (!isError) {
+			try {
+				await login(user);
+			} catch (err) {
+				console.error(err);
+				setAlert('Login failed', 'danger');
+			}
 		}
 	};
 
-	return (
+	return !isAuth ? (
 		<div className="form-container">
 			<h1>Login</h1>
 			<form onSubmit={onSubmit}>
@@ -61,10 +80,12 @@ const Login = () => {
 				<input
 					type="submit"
 					className="btn btn-primary btn-block"
-					value="Register"
+					value="Login"
 				/>
 			</form>
 		</div>
+	) : (
+		<Redirect to="/" />
 	);
 };
 

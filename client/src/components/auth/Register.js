@@ -1,15 +1,15 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 
-import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
 const Register = props => {
-	const alertContext = useContext(AlertContext);
 	const authContext = useContext(AuthContext);
+	const alertContext = useContext(AlertContext);
 
+	const {loadUser, registerUser, error, clearErrors, isAuth} = authContext;
 	const {setAlert} = alertContext;
-	const {registerUser, error, clearErrors, token, isAuth} = authContext;
 
 	const [user, setUser] = useState({
 		name: '',
@@ -21,6 +21,7 @@ const Register = props => {
 	const {name, email, password, password2} = user;
 
 	useEffect(() => {
+		loadUser();
 		if (error && error !== '') {
 			setAlert(error, 'danger');
 			clearErrors();
