@@ -1,10 +1,15 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
+import {Redirect} from 'react-router-dom';
 
 import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
 
-const Register = () => {
+const Register = props => {
 	const alertContext = useContext(AlertContext);
+	const authContext = useContext(AuthContext);
+
 	const {setAlert} = alertContext;
+	const {registerUser, error, clearErrors, token, isAuth} = authContext;
 
 	const [user, setUser] = useState({
 		name: '',
@@ -15,11 +20,18 @@ const Register = () => {
 
 	const {name, email, password, password2} = user;
 
+	useEffect(() => {
+		if (error && error !== '') {
+			setAlert(error, 'danger');
+			clearErrors();
+		}
+	}, [error]);
+
 	const onChange = e => {
 		setUser({...user, [e.target.name]: e.target.value});
 	};
 
-	const onSubmit = e => {
+	const onSubmit = async e => {
 		e.preventDefault();
 		let isError = false;
 		if (name === '') {
@@ -43,10 +55,16 @@ const Register = () => {
 			isError = true;
 		}
 		if (!isError) {
+			try {
+				await registerUser(user);
+			} catch (err) {
+				console.error(err);
+				setAlert('Registration failed', 'danger');
+			}
 		}
 	};
 
-	return (
+	return !isAuth ? (
 		<div className="form-container">
 			<h1>
 				Account <span className="text-primary">Register</span>
@@ -105,6 +123,8 @@ const Register = () => {
 				/>
 			</form>
 		</div>
+	) : (
+		<Redirect to="/" />
 	);
 };
 
