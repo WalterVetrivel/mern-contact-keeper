@@ -40,7 +40,7 @@ const ContactForm = () => {
 		if (!current) {
 			addContact(contact);
 		} else {
-			updateContact(contact);
+			updateContact({...contact, id: current.id});
 		}
 		clearAll();
 	};
