@@ -25,6 +25,7 @@ const ContactForm = () => {
 		} else {
 			setContact(init);
 		}
+		// eslint-disable-next-line
 	}, [contactContext, current]);
 
 	const onChange = e =>

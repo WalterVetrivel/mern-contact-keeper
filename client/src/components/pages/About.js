@@ -9,6 +9,7 @@ const About = () => {
 	useEffect(() => {
 		loadUser();
 		console.log('User loaded');
+		// eslint-disable-next-line
 	}, []);
 
 	return (

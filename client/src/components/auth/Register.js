@@ -26,6 +26,7 @@ const Register = props => {
 			setAlert(error, 'danger');
 			clearErrors();
 		}
+		// eslint-disable-next-line
 	}, [error]);
 
 	const onChange = e => {

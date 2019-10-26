@@ -24,7 +24,7 @@ const Navbar = ({title, icon}) => {
 		<Fragment>
 			<li>Hello {user && user.name}</li>
 			<li>
-				<a onClick={onLogout} style={{cursor: 'pointer'}}>
+				<a onClick={onLogout} style={{cursor: 'pointer'}} href="#!">
 					<FontAwesomeIcon icon={faSignOutAlt} />
 					&nbsp;
 					<span className="hide-sm">Logout</span>
