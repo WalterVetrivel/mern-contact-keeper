@@ -16,14 +16,17 @@ export default (state, action) => {
 		case GET_CONTACTS:
 			return {
 				...state,
-				contacts: [...action.payload]
+				contacts: [...action.payload],
+				loading: false,
+				error: false
 			};
 		case CLEAR_CONTACTS:
 			return {
-				contacts: [],
+				contacts: null,
 				filtered: null,
 				current: null,
-				error: null
+				error: null,
+				loading: true
 			};
 		case ADD_CONTACT:
 			return {...state, contacts: [...state.contacts, action.payload]};

@@ -19,10 +19,11 @@ import {
 
 const ContactState = props => {
 	const initialState = {
-		contacts: [],
+		contacts: null,
 		current: null,
 		filtered: null,
-		error: null
+		error: null,
+		loading: true
 	};
 
 	const [state, dispatch] = useReducer(contactReducer, initialState);
@@ -71,7 +72,6 @@ const ContactState = props => {
 	const deleteContact = async id => {
 		try {
 			const response = await axios.delete(`/api/contacts/${id}`);
-			console.log(response);
 			dispatch({type: DELETE_CONTACT, payload: id});
 		} catch (err) {
 			console.error(err);
@@ -129,6 +129,7 @@ const ContactState = props => {
 				contacts: state.contacts,
 				current: state.current,
 				filtered: state.filtered,
+				loading: state.loading,
 				error: state.error,
 				getContacts,
 				clearContacts,
